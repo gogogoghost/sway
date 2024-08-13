@@ -15,7 +15,7 @@ set $down j
 set $up k
 set $right l
 
-set $term gnome-terminal
+set $term alacritty
 
 #set $menu --no-startup-id rofi -show-icon -show drun -theme /usr/share/rofi/themes/Arc-Dark.rasi
 #set $menu --no-startup-id wofi --show=drun --lines=5 --prompt="" --gtk-dark
@@ -164,15 +164,14 @@ include /etc/sway/config.d/*
 
 ##############################             自定义开始            ###############################################
 
-exec export SDL_VIDEODRIVER=wayland
-exec export _JAVA_AWT_WM_NONREPARENTING=1
-exec export QT_QPA_PLATFORM=wayland
-exec export XDG_CURRENT_DESKTOP=sway
-exec export XDG_SESSION_DESKTOP=sway
-
+# hide title bar
+font pango: monospace 0.001
+titlebar_border_thickness 0
+titlebar_padding 0
 default_border pixel 3
 default_floating_border pixel 3
 
+# border color
 #set $cl_high #009ddc
 set $cl_high #2B303B66
 set $cl_indi #d9d8d8
@@ -186,10 +185,6 @@ client.focused_inactive $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.unfocused        $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
 
-font "WenQuanYi Micro Hei" 12
-
-titlebar_padding 1 1
-
 #音量
 #exec pipewire
 set $volUp pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -199,17 +194,8 @@ bindsym XF86AudioLowerVolume exec $volDown
 bindsym Mod4+Shift+h exec $volUp
 bindsym Mod4+Shift+l exec $volDown
 
-output DP-1 mode 1920x1080@120Hz adaptive_sync on
-
-
 #输入法
-exec fcitx5 -rd
-
-#wmname
-#exec wmname compiz
-
-#sudo xhost
-#exec xhost si:localuser:root
+exec fcitx5
 
 #nautilus
 bindsym Mod4+E exec nautilus
@@ -219,10 +205,6 @@ bindsym Mod4+R exec $menu
 
 #lock screen: swaylock-effects
 set $lock swaylock --clock --indicator --screenshots --effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 4x2 --datestr "%a %e.%m.%Y" --timestr "%k:%M"
-exec swayidle -w \
-    timeout 600 $lock \
-    timeout 570 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
 
 bindsym Mod4+L exec $lock
 
@@ -230,8 +212,9 @@ bindsym Mod4+L exec $lock
 input * xkb_numlock enable
 
 #screenshot
-bindsym Control+Alt+A exec QT_QPA_PLATFORM=wayland flameshot gui
+bindsym Control+Alt+A exec flameshot gui --raw | wl-copy
 
 #system-monitor
 bindsym Control+Alt+KP_Enter exec gnome-system-monitor
 
+include ~/.config/sway/config.d/*
