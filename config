@@ -21,12 +21,12 @@ set $term alacritty
 #set $menu --no-startup-id wofi --show=drun --lines=5 --prompt="" --gtk-dark
 set $menu --no-startup-id fuzzel -b 000000cc -f "文泉驿点阵正黑:size=14"
 
-output * bg ~/.config/sway/bg.jpg fill
+output * background ~/.config/sway/bg.jpg fill
 
-    bindsym Mod4+T exec $term
+bindsym Mod4+T exec $term
 
-    # Kill focused window
-    bindsym Alt+F4 kill
+# Kill focused window
+bindsym Alt+F4 kill
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
