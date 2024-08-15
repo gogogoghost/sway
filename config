@@ -185,6 +185,9 @@ client.focused_inactive $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.unfocused        $cl_back $cl_back $cl_fore $cl_back $cl_back
 client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
 
+# x
+exec xhost +local:
+
 #音量
 #exec pipewire
 set $volUp pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -212,7 +215,8 @@ bindsym Mod4+L exec $lock
 input * xkb_numlock enable
 
 #screenshot
-bindsym Control+Alt+A exec flameshot gui --raw | wl-copy
+#bindsym Control+Alt+A exec flameshot gui --raw | wl-copy
+bindsym Control+Alt+A exec sway-screenshot -m region --clipboard-only
 
 #system-monitor
 bindsym Control+Alt+KP_Enter exec gnome-system-monitor
